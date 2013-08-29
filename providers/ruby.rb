@@ -21,9 +21,10 @@
 #
 
 def load_current_resource
-  @rubie        = new_resource.definition
-  @prefix_path  = new_resource.prefix_path ||
-    "#{node['ruby_install']['default_ruby_base_path']}/#{@rubie.gsub(' ', '-')}"
+  @rubie         = new_resource.definition
+  @prefix_path   = new_resource.prefix_path
+  @prefix_path ||= "/home/#{new_resource.user}/.rubies/#{@rubie.gsub(' ', '-')}" if new_resource.user
+  @prefix_path ||= "#{node['ruby_install']['default_ruby_base_path']}/#{@rubie.gsub(' ', '-')}"
 end
 
 action :install do
