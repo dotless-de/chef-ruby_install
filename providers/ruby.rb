@@ -49,8 +49,21 @@ def perform_install
 
     rubie       = @rubie        # bypass block scoping issue
     prefix_path = @prefix_path  # bypass block scoping issue
+    install_options = [
+      %{--install-dir "#{prefix_path}"}
+    ]
+    install_options << %{--src-dir "#{new_resource.source_dir}"} if new_resource.source_dir
+    install_options << %{--mirror "#{new_resource.mirror}"} if new_resource.mirror
+    install_options << %{--url "#{new_resource.url}"} if new_resource.url
+    install_options << %{--md5 "#{new_resource.md5}"} if new_resource.md5
+    if new_resource.patch
+      install_options += Array(new_resource.patch).map { |p|
+        %{--patch "#{p}"}
+      }
+    end
+
     execute "ruby-install[#{rubie}]" do
-      command   %{/usr/local/bin/ruby-install -i "#{prefix_path}" "#{rubie}"}
+      command   %{/usr/local/bin/ruby-install #{install_options.join(" ")} "#{rubie}"}
       user        new_resource.user         if new_resource.user
       group       new_resource.group        if new_resource.group
       environment new_resource.environment  if new_resource.environment
