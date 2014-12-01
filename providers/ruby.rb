@@ -66,7 +66,7 @@ def perform_install
       }
     end
 
-    execute_ruby_install(rubie, install_options)
+    execute_ruby_install(rubie, install_options.join(" "))
 
     Chef::Log.info("ruby_install_ruby[#{@rubie}] build time was " \
       "#{(Time.now - install_start) / 60.0} minutes")
