@@ -29,8 +29,10 @@ Platform
 
 The following platforms are supported and tested under test kitchen.
 
-* Ubuntu 10.04, 12.04
-* CentOS 5.10, 6.5
+* Ubuntu 12.04
+* Debian 7.4
+* CentOS 6.5
+* Amazon Linux (2013.09.2)
 
 Other Debian and RHEL family distributions are assumed to work.  Other
 distributions that [ruby-install][ruby-install] supports should also
@@ -61,7 +63,7 @@ version
 
 The version of ruby-install that will be installed.
 
-The default is the current latest version 0.3.4
+The default is the current latest version 0.4.1
 
 checksum
 --------
@@ -92,8 +94,24 @@ Development
 * Source hosted at [GitHub][repo]
 * Report issues/Questions/Feature requests on [GitHub Issues][issues]
 
-Pull requests are very welcome! Make sure your patches are well tested.
-Ideally create a topic branch for every separate change you make.
+### Contributing
+
+Pull requests are very welcome! Ideally create a topic branch for every
+separate change you make.
+
+This cookbook uses [ChefSpec][chefspec] for unit tests. I also use [Food
+Critic][foodcritic] and [RuboCop][rubocop] to check for style issues.
+When contributing it would be very helpful if you could run these via
+`bundle exec spec` and `bundle exec style`.
+
+Lastly, there are [Serverspec][serverspec] integration tests for use
+with [Test Kitchen][testkitchen]. At the very least the installation
+integration tests should be run, you can ignore the EC2 one if you don't
+have an AWS account (which you will get billed for). The allrubies tests
+often fail due to a particular Ruby failing to build on an OS, this is
+not necessarily an issue with this cookbook though so can safely be
+ignored. To see all of the available integration test suites just check
+`bundle exec rake T` or `bundle exec kitchen list`
 
 License and Author
 ==================
@@ -126,3 +144,8 @@ limitations under the License.
 [ruby-install]:       https://github.com/postmodern/ruby-install
 [chruby]:             https://github.com/postmodern/chruby
 [lwrp]:               http://wiki.opscode.com/display/chef/Lightweight+Resources+and+Providers+%28LWRP%29
+[chefsepc]:           https://github.com/sethvargo/chefspec
+[foodcritic]:         https://github.com/acrmp/foodcritic
+[rubocop]:            https://github.com/bbatsov/rubocop
+[serverspec]:         https://github.com/serverspec/serverspec
+[testkitchen]:        https://github.com/test-kitchen/test-kitchen

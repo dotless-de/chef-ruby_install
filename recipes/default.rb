@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #
 # Cookbook Name:: ruby_install
 # Recipe:: default
@@ -31,8 +32,13 @@ end
 include_recipe 'ark'
 
 ark 'ruby_install' do
-  url "https://github.com/postmodern/ruby-install/archive/v#{node['ruby_install']['version']}.tar.gz"
+  url "https://codeload.github.com/postmodern/ruby-install/tar.gz/v#{node['ruby_install']['version']}" # rubocop:disable LineLength
+  extension 'tar.gz'
   checksum node['ruby_install']['checksum']
   prefix_root '/tmp' # Don't need /usr/local/ruby-install
   action :install_with_make
 end
+
+# Make sure ruby-install has correct ownership, Debian doesn't seem to use
+# group 'root' when it is installed unlike all the others including Ubuntu.
+execute 'chown root:root /usr/local/bin/ruby-install'

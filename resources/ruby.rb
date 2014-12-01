@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #
 # Cookbook Name:: ruby_install
 # Resource:: ruby
@@ -22,16 +23,17 @@
 
 actions :install, :reinstall
 
-attribute :definition,  :kind_of => String, :name_attribute => true
-attribute :prefix_path, :kind_of => String
-attribute :source_dir,  :kind_of => String
-attribute :patch,       :kind_of => [String, Array]
-attribute :mirror,      :kind_of => String
-attribute :url,         :kind_of => String
-attribute :md5,         :kind_of => String
-attribute :user,        :kind_of => String
-attribute :group,       :kind_of => String
-attribute :environment, :kind_of => Hash
+attribute :definition,  kind_of: String, :name_attribute => true
+attribute :prefix_path, kind_of: String
+attribute :source_dir,  kind_of: String
+attribute :cleanup,     kind_of: [TrueClass, FalseClass]
+attribute :patch,       kind_of: [String, Array]
+attribute :mirror,      kind_of: String
+attribute :url,         kind_of: String
+attribute :md5,         kind_of: String
+attribute :user,        kind_of: String
+attribute :group,       kind_of: String
+attribute :environment, kind_of: Hash
 
 def initialize(*args)
   super
